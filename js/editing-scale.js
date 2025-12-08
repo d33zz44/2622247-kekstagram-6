@@ -1,4 +1,4 @@
-import { setDefaultEffect } from './editing-scale.js';
+import { setDefaultEffect } from './validation.js';
 import { setDefaultScale } from './render-picture.js';
 
 const MAX_SYMBOLS = 20;
