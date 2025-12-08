@@ -8,6 +8,10 @@ const socialComments = bigPicture.querySelector('.social__comments');
 const commentCountElement = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 
+let currentComments = [];
+let commentsShown = 0;
+const COMMENTS_PER_PORTION = 5;
+
 function onDocumentKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
@@ -49,18 +53,41 @@ const createCommentElement = (comment) => {
 
 const clearComments = () => {
   socialComments.innerHTML = '';
+  commentsShown = 0;
 };
 
-const fillComments = (comments) => {
-  clearComments();
+const renderComments = () => {
+  const commentsToShow = currentComments.slice(commentsShown, commentsShown + COMMENTS_PER_PORTION);
 
   const fragment = document.createDocumentFragment();
-  comments.forEach((comment) => {
+  commentsToShow.forEach((comment) => {
     const commentElement = createCommentElement(comment);
     fragment.appendChild(commentElement);
   });
 
   socialComments.appendChild(fragment);
+  commentsShown += commentsToShow.length;
+  commentCountElement.innerHTML = `${commentsShown} из <span class="comments-count">${currentComments.length}</span> комментариев`;
+
+  if (commentsShown >= currentComments.length) {
+    commentsLoader.classList.add('hidden');
+  } else {
+    commentsLoader.classList.remove('hidden');
+  }
+};
+
+const onCommentsLoaderClick = () => {
+  renderComments();
+};
+
+const fillComments = (comments) => {
+  currentComments = comments;
+  clearComments();
+  renderComments();
+  commentsLoader.removeEventListener('click', onCommentsLoaderClick);
+  commentsLoader.addEventListener('click', onCommentsLoaderClick);
+
+  onCommentsLoaderClick();
 };
 
 const fillBigPicture = (photo) => {
@@ -72,8 +99,8 @@ const fillBigPicture = (photo) => {
 
   fillComments(photo.comments);
 
-  commentCountElement.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  commentCountElement.classList.remove('hidden');
+  commentsLoader.classList.remove('hidden');
 };
 
 const openBigPicture = (photo) => {
@@ -85,3 +112,4 @@ const openBigPicture = (photo) => {
 };
 
 export { openBigPicture };
+
