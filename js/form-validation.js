@@ -45,9 +45,9 @@ const validateHashtagUniqueness = (value) => {
 
 const validateCommentLength = (value) => value.length <= MAX_COMMENT_LENGTH;
 
-const blockEscapePropagation = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.stopPropagation();
+const blockEscapePropagation = (event) => {
+  if (isEscapeKey(event)) {
+    event.stopPropagation();
   }
 };
 
@@ -55,10 +55,10 @@ const initFormValidation = ({ formElement, hashtagInput, commentInput }) => {
   const validator = setupValidator(formElement);
 
   validator.addValidator(hashtagInput, validateHashtagFormat, 'Неверный хэш-тег');
-  validator.addValidator(hashtagInput, validateHashtagCount, 'Максимум 5 хэш-тегов');
-  validator.addValidator(hashtagInput, validateHashtagUniqueness, 'Хэш-теги повторяются');
+  validator.addValidator(hashtagInput, validateHashtagCount, 'Нельзя больше 5 хэш-тегов');
+  validator.addValidator(hashtagInput, validateHashtagUniqueness, 'Хэш-теги не должны повторяться');
 
-  validator.addValidator(commentInput, validateCommentLength, 'Максимальная длина комментария 140 символов');
+  validator.addValidator(commentInput, validateCommentLength, 'Комментарий максимум 140 символов');
 
   hashtagInput.addEventListener('keydown', blockEscapePropagation);
   commentInput.addEventListener('keydown', blockEscapePropagation);

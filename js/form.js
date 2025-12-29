@@ -101,8 +101,8 @@ const openEditor = () => {
   editPanel.classList.remove('hidden');
   pageBody.classList.add('modal-open');
 
-  escapeKeyHandler = (evt) => {
-    if (!isEscapeKey(evt)) {
+  escapeKeyHandler = (event) => {
+    if (!isEscapeKey(event)) {
       return;
     }
 
@@ -110,7 +110,7 @@ const openEditor = () => {
       return;
     }
 
-    evt.preventDefault();
+    event.preventDefault();
     closeEditor({ reset: true });
   };
 
@@ -133,8 +133,8 @@ const handleFileSelect = () => {
   openEditor();
 };
 
-const handleCancelClick = (evt) => {
-  evt.preventDefault();
+const handleCancelClick = (event) => {
+  event.preventDefault();
   closeEditor({ reset: true });
 };
 
@@ -143,8 +143,8 @@ const toggleSubmitButton = (isDisabled) => {
   submitBtn.textContent = isDisabled ? 'Отправляю...' : 'Опубликовать';
 };
 
-const handleFormSubmit = (evt) => {
-  evt.preventDefault();
+const handleFormSubmit = (event) => {
+  event.preventDefault();
 
   if (!formValidator.validate()) {
     return;
@@ -168,5 +168,3 @@ const handleFormSubmit = (evt) => {
 fileInput.addEventListener('change', handleFileSelect);
 cancelBtn.addEventListener('click', handleCancelClick);
 uploadForm.addEventListener('submit', handleFormSubmit);
-
-

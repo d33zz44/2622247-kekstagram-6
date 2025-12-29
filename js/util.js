@@ -1,14 +1,26 @@
-const getRandomInteger = (min, max) => Math.floor(Math.random()*(max-min+1)) + min;
+const getRandomInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+  return Math.floor(Math.random() * (upper - lower + 1)) + lower;
+};
 
-const getRandomElement = (array) =>  array[Math.floor(Math.random() * array.length)];
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const generateCommentId = () => {
-  let lastId = 0;
-  return () => {
-    lastId += 1;
-    return lastId;
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      callback(...args);
+    }, timeoutDelay);
   };
 };
 
-export { getRandomInteger, getRandomElement, generateCommentId };
+export {
+  getRandomInteger,
+  debounce,
+  isEscapeKey,
+};
+
 

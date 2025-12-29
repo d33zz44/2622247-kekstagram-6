@@ -19,8 +19,8 @@ const createPictureThumbnail = (pictureData) => {
   thumbnail.querySelector('.picture__likes').textContent = likes;
   thumbnail.querySelector('.picture__comments').textContent = comments.length;
 
-  const handleThumbnailClick = (evt) => {
-    evt.preventDefault();
+  const handleThumbnailClick = (event) => {
+    event.preventDefault();
     displayFullImage(pictureData);
   };
 
