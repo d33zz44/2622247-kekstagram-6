@@ -1,4 +1,4 @@
-// main.js
+
 import { getData } from './api.js';
 import { initFilters } from './filters.js';
 import { initEffects } from './form-effects.js';
@@ -10,7 +10,7 @@ const initApp = () => {
   // Инициализация эффектов редактирования изображения
   initEffects();
 
-  // Инициализация формы
+  // Инициализация формы загрузки
   initForm();
 
   // Загрузка данных с сервера
@@ -20,7 +20,7 @@ const initApp = () => {
       initFilters(data);
     })
     .catch((error) => {
-      showErrorMessage(`Ошибка загрузки: ${error.message}`);
+      showErrorMessage(`Ошибка загрузки фотографий: ${error.message}`);
     });
 };
 
