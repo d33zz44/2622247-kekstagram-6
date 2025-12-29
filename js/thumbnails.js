@@ -1,3 +1,4 @@
+// thumbnails.js
 import { openBigPicture } from './big-picture.js';
 
 const picturesContainer = document.querySelector('.pictures');
@@ -30,4 +31,10 @@ const renderThumbnails = (photos) => {
   picturesContainer.appendChild(fragment);
 };
 
-export { renderThumbnails };
+const clearThumbnails = () => {
+  const thumbnails = picturesContainer.querySelectorAll('.picture');
+  thumbnails.forEach((thumbnail) => thumbnail.remove());
+};
+
+export { renderThumbnails, clearThumbnails };
+

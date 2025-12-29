@@ -112,4 +112,3 @@ const openBigPicture = (photo) => {
 };
 
 export { openBigPicture };
-
