@@ -11,3 +11,4 @@ const generateCommentId = () => {
 };
 
 export { getRandomInteger, getRandomElement, generateCommentId };
+
