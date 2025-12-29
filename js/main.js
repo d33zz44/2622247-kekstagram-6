@@ -1,20 +1,28 @@
 // main.js
-import './util.js';
-import './data.js';
-import { generatePhotos } from './data.js';
-import { renderThumbnails } from './thumbnails.js';
-import { initEffects } from './simple-effects.js';
-import { initScale } from './simple-scale.js';
-import './image-upload.js';
+import { getData } from './api.js';
+import { initFilters } from './filters.js';
+import { initEffects } from './form-effects.js';
+import { initForm } from './validation.js';
+import { showErrorMessage } from './messages.js';
 
 // Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-
-  const photos = generatePhotos();
-  renderThumbnails(photos);
-
+const initApp = () => {
+  // Инициализация эффектов редактирования изображения
   initEffects();
 
-  initScale();
+  // Инициализация формы
+  initForm();
 
-});
+  // Загрузка данных с сервера
+  getData()
+    .then((data) => {
+      // Инициализация фильтров с полученными данными
+      initFilters(data);
+    })
+    .catch((error) => {
+      showErrorMessage(`Ошибка загрузки: ${error.message}`);
+    });
+};
+
+// Запуск приложения после загрузки DOM
+document.addEventListener('DOMContentLoaded', initApp);
